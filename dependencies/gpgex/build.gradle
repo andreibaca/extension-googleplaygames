@@ -1,17 +1,21 @@
 buildscript {
 	repositories {
-		maven {
-			url "https://repo1.maven.org/maven2/"
-		}
+		mavenCentral()
+		google()
 	}
+
 	dependencies {
-		classpath 'com.android.tools.build:gradle:2.1.0'
+		classpath 'com.android.tools.build:gradle:7.4.2'
 	}
 }
 
 apply plugin: 'com.android.library'
 
 android {
+	defaultConfig {
+		minSdkVersion Integer.parseInt(project.ANDROID_BUILD_MIN_SDK_VERSION)
+		targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_TARGET_SDK_VERSION)
+	}
 	sourceSets {
 		main {
 			manifest.srcFile 'AndroidManifest.xml'
@@ -23,9 +27,10 @@ android {
 	buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
 }
 
+group 'com.gpgex'
+
 dependencies {
-	api project(':deps:extension-api')
-	implementation 'com.google.android.gms:play-services-plus:::SET_PLAY_SERVICES_VERSION::'
+	implementation project(':deps:extension-api')
 	implementation 'com.google.android.gms:play-services-games:::SET_PLAY_SERVICES_VERSION::'
 	implementation 'com.google.android.gms:play-services-drive:::SET_PLAY_SERVICES_VERSION::'
 }
